@@ -269,6 +269,7 @@ Total incoming records
 10
 
 These results demonstrate how SyncShield identifies potential changes between customer datasets.
+
 🗄️ Database & Data Integrity
 SyncShield uses SQLite to persist workspace and processing information.
 Key implementation details include:
@@ -281,6 +282,7 @@ Transactional quota reservation.
 Idempotent submission handling.
 Repeated submissions using the same idempotency key and identical input replay the saved result. Reusing that key with different input returns HTTP 409 Conflict.
 These mechanisms help maintain consistency during repeated submissions and processing operations.
+
 🧪 Testing & Verification
 Run the Python unit tests:
 python -m unittest discover -s tests -v
@@ -289,8 +291,10 @@ node --check public/app.js
 Compile-check the Python backend:
 python -m py_compile server.py
 Run the local verification script:
+
 .\scripts\verify-local.ps1 -SkipHealthCheck
 Tip: Run these checks from the project root. If the server is already running after code changes, stop it with Ctrl+C and restart it to load the updated application and database migrations.
+
 ☁️ Azure Deployment Scaffold
 The repository includes Terraform infrastructure definitions and a PowerShell deployment script for an Azure App Service setup.
 The deployment script reviews a Terraform plan by default.
@@ -300,6 +304,7 @@ The application uses SQLite rather than PostgreSQL.
 The deployment scaffold targets a single-instance deployment.
 It is not designed for multi-instance database scaling.
 A production Azure deployment is not included as a completed feature.
+
 ⚠️ Current Limitations
 SyncShield is a prototype intended for demonstration and evaluation.
 The following capabilities are not yet configured:
@@ -312,6 +317,7 @@ Payment webhook verification and automatic paid-plan activation.
 A production-ready, scalable database architecture.
 The subscription and role-management controls are intended for local demonstration, not production administration.
 Before enabling real payments, configure Razorpay credentials and implement a publicly reachable webhook with signature verification and reliable payment-state handling.
+
 🔮 Future Enhancements
 Potential future improvements include:
 AI-assisted anomaly detection: Identify unusual customer-data changes using machine learning.
@@ -322,6 +328,7 @@ Approval workflows: Require human approval before executing proposed changes.
 Scalable database architecture: Migrate to PostgreSQL and implement a deployment architecture suitable for multiple application instances.
 Enhanced observability: Add structured logs, monitoring, and operational alerts.
 These are proposed enhancements, not claims about currently implemented features.
+
 💡 Why SyncShield?
 Traditional data synchronization can make it difficult to understand the impact of incoming changes before processing them.
 SyncShield introduces a preview-first workflow that helps teams:
@@ -332,6 +339,7 @@ Enforce workspace-level usage controls.
 Reduce uncertainty before a future ERP integration.
 Our Approach
 Validate first. Preview changes. Review the results. Synchronize only when authorized.
+
 👥 Team & Project Information
 Detail
 Information
@@ -346,5 +354,6 @@ Customer-data validation and synchronization previews
 Current status
 Locally hosted prototype
 Developed as a prototype for safer and more transparent ERP data synchronization.
+
 🛡️ SyncShield
 Making ERP synchronization more transparent, controlled, and reliable. 
