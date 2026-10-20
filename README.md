@@ -4,6 +4,7 @@ SyncShield is a locally hosted SaaS prototype that helps businesses validate cus
 It provides a workspace-based environment with data validation, change detection, usage tracking, run history, subscription plans, and administrative controls.
 Built for safer ERP data synchronization.
 SyncShield previews proposed changes without connecting to or modifying a live ERP system.
+
 🚀 Project Overview
 ERP synchronization involves transferring customer information between systems while maintaining data consistency and integrity. Invalid records, duplicate identifiers, and unexpected changes can lead to data quality issues.
 SyncShield addresses this challenge by allowing users to:
@@ -13,16 +14,19 @@ Identify records that need to be created, updated, or left unchanged.
 Preview synchronization results before taking action.
 Track previous validation and synchronization-preview runs.
 Manage workspace usage, subscription plans, and access controls.
+
 The application is designed as a multi-tenant SaaS prototype, with workspace-scoped data and usage controls.
 ✨ Key Features
-1. 📂 Customer Data Validation
+
+ 1. 📂 Customer Data Validation
 Upload customer datasets in CSV or JSON format and validate their structure and contents.
 Detect duplicate record IDs.
 Identify missing customer names.
 Validate version numbers.
 Check supported status values.
 Process datasets containing up to 10 records per request.
-2. 🔄 ERP Synchronization Preview
+ 
+ 2. 🔄 ERP Synchronization Preview
 Compare an existing customer snapshot with a new incoming dataset to identify the proposed changes.
 Operation
 Description
@@ -34,26 +38,30 @@ An existing customer's information has changed.
 The customer record requires no changes.
 Example: Comparing the included sample datasets demonstrates four updates, three unchanged records, and three new customer records.
 These are proposed operations only. SyncShield does not execute changes against a live ERP.
-3. 📊 Workspace Dashboard
+ 
+ 3. 📊 Workspace Dashboard
 Monitor data-processing activity through a centralized overview.
 Persisted run metrics.
 Daily processing volume.
 Recent workspace runs.
 Historical run information.
-4. 🕘 Run History & Export
+ 
+ 4. 🕘 Run History & Export
 Maintain a record of accepted processing runs.
 Review previously saved results.
 Inspect individual run details.
 Export saved run information.
 Track failed processing attempts.
-5. 🏢 Multi-Tenant Workspace Isolation
+ 
+ 5. 🏢 Multi-Tenant Workspace Isolation
 Provide separate workspaces for individual accounts.
 Workspace-scoped dashboard metrics.
 Isolated run history and usage information.
 Session-based authorization.
 Rejection of unauthorized workspace overrides.
 Workspace suspension controls.
-6. 💳 Subscription & Usage Management
+ 
+ 6. 💳 Subscription & Usage Management
 Explore different subscription tiers and their associated capabilities.
 Capability
 Basic
@@ -74,7 +82,8 @@ Run history
 ✅
 ✅
 Usage limits and subscription features reflect the current prototype configuration.
-7. 🔐 Authentication & Security
+ 
+ 7. 🔐 Authentication & Security
 Implement foundational security controls for the local prototype.
 Password hashing using PBKDF2-HMAC-SHA256 with salts.
 Random session tokens stored as hashes.
@@ -82,14 +91,16 @@ HttpOnly and SameSite session cookies.
 Workspace-scoped authorization.
 Audit events for supported administrative changes.
 Idempotency protection for repeated submissions.
-8. 🛠️ Administrative Controls
+ 
+ 8. 🛠️ Administrative Controls
 Provide administrative visibility into workspace operations.
 Review workspace quotas.
 Compare subscription plans.
 Inspect run statuses.
 Switch demo roles.
 Access role-restricted diagnostics and audit events.
-9. 💰 Payment Checkout Preview
+ 
+ 9. 💰 Payment Checkout Preview
 Explore the subscription checkout experience.
 Illustrative pricing of ₹999 per month.
 Optional Razorpay-hosted payment links.
@@ -202,16 +213,20 @@ Git.
 A terminal such as PowerShell.
 A modern web browser.
 No third-party Python packages are required for the documented local setup.
+
 Step 1: Clone the Repository
 git clone <YOUR_REPOSITORY_URL>
 Navigate into the project directory:
 cd UC-02-ERP_Synchronisation_preivew_SaaS_SyncSheild
 Replace <YOUR_REPOSITORY_URL> with your actual GitHub repository URL.
+
 Step 2: Start the Application
 python server.py
 The application initializes its SQLite database on first startup, unless a different database path is configured.
+
 Step 3: Open the Application
 Open the local application address printed by the server, or use the application's configured local URL.
+
 Step 4: Create an Account
 Open /signup.
 Create an account.
@@ -219,6 +234,7 @@ Complete the initial setup.
 Select the Basic or Pro plan.
 Upload a CSV or JSON customer dataset.
 Review the validation results and available dashboard features.
+
 Step 5: Try Synchronization Preview
 To explore the complete preview workflow:
 Select the Pro plan.
@@ -226,9 +242,11 @@ Upload outputs/syncshield_old_customers.csv as the existing customer snapshot.
 Upload outputs/syncshield_new_customers.csv as the incoming dataset.
 Review the proposed CREATE, UPDATE, and UNCHANGED operations.
 Open Run History to inspect the saved results.
+
 Note: The Pro workspace initially contains a seeded customer record. Uploading the old customer snapshot replaces the baseline used for the preview.
 🧪 Sample Datasets
 The repository includes three datasets for testing different scenarios.
+
 Dataset
 Purpose
 syncshield_old_customers.csv
@@ -249,6 +267,7 @@ UNCHANGED
 3
 Total incoming records
 10
+
 These results demonstrate how SyncShield identifies potential changes between customer datasets.
 🗄️ Database & Data Integrity
 SyncShield uses SQLite to persist workspace and processing information.
