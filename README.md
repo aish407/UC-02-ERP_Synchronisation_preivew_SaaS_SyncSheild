@@ -96,19 +96,22 @@ Optional Razorpay-hosted payment links.
 Secure handling of payment credentials by the hosted payment provider.
 Important: Live payment activation is not implemented. Without the required Razorpay credentials, the checkout page remains available for demonstration but does not confirm payment or upgrade the subscription.
 🔄 How SyncShield Works
+
+
+
          ┌────────────────────────┐
-         │ User Signs Up │
+         │ User Signs Up          │
          └────────────┬───────────┘
                       │
                       ▼
          ┌────────────────────────┐
-         │ Select Basic or Pro │
+         │ Select Basic or Pro    │
          └────────────┬───────────┘
                       │
                       ▼
          ┌────────────────────────┐
-         │ Upload Customer Data │
-         │ CSV / JSON │
+         │ Upload Customer Data   │
+         │ CSV / JSON             │
          └────────────┬───────────┘
                       │
                       ▼
@@ -118,21 +121,23 @@ Important: Live payment activation is not implemented. Without the required Razo
                       │
                       ▼
          ┌────────────────────────┐
-         │ Compare Existing Data │
-         │ With Incoming Records │
+         │ Compare Existing Data  │
+         │ With Incoming Records  │
          └────────────┬───────────┘
                       │
                       ▼
          ┌────────────────────────┐
          │ Preview CREATE, UPDATE │
-         │ & UNCHANGED │
+         │ & UNCHANGED            │
          └────────────┬───────────┘
                       │
                       ▼
          ┌────────────────────────┐
-         │ Save Results & Review │
-         │ Run History │
+         │ Save Results & Review  │
+         │ Run History            │
          └────────────────────────┘
+
+   
 Result: A structured preview of proposed customer-data changes before any live ERP synchronization takes place.
 🧰 Technology Stack
 Component
