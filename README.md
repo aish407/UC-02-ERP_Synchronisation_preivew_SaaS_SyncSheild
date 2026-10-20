@@ -175,46 +175,60 @@ The stack above reflects the technologies and integrations documented in the cur
 
 📁 Project Structure
 
-UC-02-ERP_Synchronisation_preivew_SaaS_SyncSheild/
+## 📁 Project Structure
 
-
+```text
+UC-02-ERP_Synchronisation_preview_SaaS_SyncShield/
+│
 ├── server.py
 ├── schema.sql
 ├── syncshield.db
+├── README.md
+│
 ├── migrations/
-│ └── Ordered database migration scripts
+│   └── Ordered database migration scripts
+│
 ├── public/
-│ └── app.js
+│   └── app.js
+│
 ├── outputs/
-│ ├── syncshield_old_customers.csv
-│ ├── syncshield_new_customers.csv
-│ └── syncshield_invalid_customers.csv
+│   ├── syncshield_old_customers.csv
+│   ├── syncshield_new_customers.csv
+│   └── syncshield_invalid_customers.csv
+│
 ├── tests/
-│ └── Automated tests
+│   └── Automated tests
+│
 ├── scripts/
-│ ├── verify-local.ps1
-│ └── deploy-azure.ps1
+│   ├── verify-local.ps1
+│   └── deploy-azure.ps1
+│
 ├── infra/
-│ └── terraform/
-├── skills/
-│ └── sync-preview/
-│ └── SKILL.md
+│   └── terraform/
+│
+└── skills/
+    └── sync-preview/
+        └── SKILL.md
+```
 
-└── README.md
-This is a logical overview based on the documented files. Adjust the tree if the actual repository contains additional files or different directory names.
-⚙️ Installation & Setup
-Prerequisites
-Python 3.10 or newer.
-Git.
-A terminal such as PowerShell.
-A modern web browser.
-No third-party Python packages are required for the documented local setup.
+**Note:** This structure represents the documented project layout. Ensure the filenames and directories match the actual repository contents.
 
-Step 1: Clone the Repository
-git clone <YOUR_REPOSITORY_URL>
-Navigate into the project directory:
-cd UC-02-ERP_Synchronisation_preivew_SaaS_SyncSheild
-Replace <YOUR_REPOSITORY_URL> with your actual GitHub repository URL.
+## ⚙️ Installation & Setup
+
+### Prerequisites
+
+- Python 3.10 or newer
+- Git
+- PowerShell or another compatible terminal
+- A modern web browser
+
+### Local Setup
+
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Run the application using Python.
+4. Open the application in your browser using the local URL configured by the server.
+
 
 Step 2: Start the Application
 python server.py
