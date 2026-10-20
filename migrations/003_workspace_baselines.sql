@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS workspace_baselines (
+ workspace_id TEXT PRIMARY KEY REFERENCES workspaces(id) ON DELETE CASCADE,
+ user_id TEXT NOT NULL REFERENCES users(id), rows_json TEXT NOT NULL,
+ updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

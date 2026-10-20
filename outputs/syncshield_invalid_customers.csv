@@ -1,0 +1,8 @@
+record_id,name,version,status
+C01,Anu,2,ACTIVE
+C02,Bala,1,ACTIVE
+C02,,0,UNKNOWN
+CUSTOMER_ID_LONGER_THAN_20_CHARS,Charu,101,ACTIVE
+C05,"  ",1,ACTIVE
+C06,Deepa,abc,ACTIVE
+C07,Gokul,2,PAUSED

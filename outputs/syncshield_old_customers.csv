@@ -1,0 +1,9 @@
+record_id,name,version,status
+C01,Anu,1,ACTIVE
+C02,Bala,1,ACTIVE
+C03,Charu,3,ACTIVE
+C04,Deepa,2,INACTIVE
+C05,Eshan,4,ACTIVE
+C06,Farah,1,ACTIVE
+C07,Gokul,2,ACTIVE
+C08,Hema,1,INACTIVE
