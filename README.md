@@ -172,38 +172,48 @@ Terraform, Azure App Service deployment scaffold
 Testing
 Python unittest, JavaScript syntax checks, PowerShell verification scripts
 The stack above reflects the technologies and integrations documented in the current repository. The Azure infrastructure is a deployment scaffold, not a completed production deployment.
+
 📁 Project Structure
+
 UC-02-ERP_Synchronisation_preivew_SaaS_SyncSheild/
 │
 ├── server.py
 ├── schema.sql
 ├── syncshield.db
 │
+
 ├── migrations/
 │ └── Ordered database migration scripts
 │
+
 ├── public/
 │ └── app.js
 │
+
 ├── outputs/
 │ ├── syncshield_old_customers.csv
 │ ├── syncshield_new_customers.csv
 │ └── syncshield_invalid_customers.csv
 │
+
 ├── tests/
 │ └── Automated tests
 │
+
 ├── scripts/
 │ ├── verify-local.ps1
 │ └── deploy-azure.ps1
 │
+
 ├── infra/
 │ └── terraform/
 │
+
 ├── skills/
 │ └── sync-preview/
 │ └── SKILL.md
 │
+
 └── README.md
 This is a logical overview based on the documented files. Adjust the tree if the actual repository contains additional files or different directory names.
 ⚙️ Installation & Setup
