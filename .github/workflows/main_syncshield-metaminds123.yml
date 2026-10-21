@@ -78,6 +78,8 @@ jobs:
           fi
           az webapp config appsettings set --resource-group "$resource_group" --name "$app_name" --settings WEBSITES_PORT=8000 WEBSITES_ENABLE_APP_SERVICE_STORAGE=true SYNCSHIELD_DB=/home/data/syncshield.db SYNCSHIELD_ADMIN_DB=/home/data/platform_admin.db SCM_DO_BUILD_DURING_DEPLOYMENT=false
           az webapp config set --resource-group "$resource_group" --name "$app_name" --startup-file "python azure_start.py"
+          az webapp update --resource-group "$resource_group" --name "$app_name" --set enabled=true
+          az webapp start --resource-group "$resource_group" --name "$app_name"
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
