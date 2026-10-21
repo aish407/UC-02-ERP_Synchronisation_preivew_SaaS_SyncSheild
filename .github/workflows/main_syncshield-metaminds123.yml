@@ -67,6 +67,26 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_956F6C5DE1644669A7C407542653D604 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_143C30BD057442F2B5D3B2919A042A69 }}
 
+      - name: Configure Azure App Service
+        shell: bash
+        run: |
+          app_name=syncshield-metaminds123
+          resource_group="$(az webapp list --query "[?name=='${app_name}'].resourceGroup | [0]" --output tsv)"
+          if [[ -z "$resource_group" ]]; then
+            echo "Could not find the App Service resource group." >&2
+            exit 1
+          fi
+          az webapp config appsettings set \\
+            --resource-group "$resource_group" \\
+            --name "$app_name" \\
+            --settings \\
+              WEBSITES_PORT=8000 \\
+              WEBSITES_ENABLE_APP_SERVICE_STORAGE=true \\
+              SYNCSHIELD_DB=/home/data/syncshield.db \\
+              SYNCSHIELD_ADMIN_DB=/home/data/platform_admin.db \\
+              SCM_DO_BUILD_DURING_DEPLOYMENT=false
+          az webapp config set --resource-group "$resource_group" --name "$app_name" --startup-file "python azure_start.py"
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
