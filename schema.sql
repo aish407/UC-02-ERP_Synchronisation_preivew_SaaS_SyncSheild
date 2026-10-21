@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT NOT NULL UNIQUE COLLATE NOCASE,
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'Operator',
+    job_title TEXT NOT NULL DEFAULT 'Other',
+    account_status TEXT NOT NULL DEFAULT 'ACTIVE' CHECK (account_status IN ('ACTIVE','SUSPENDED')),
     onboarding_complete INTEGER NOT NULL DEFAULT 0,
     preferred_format TEXT NOT NULL DEFAULT 'CSV',
     intended_use TEXT NOT NULL DEFAULT '',
@@ -23,7 +25,8 @@ CREATE TABLE IF NOT EXISTS sessions (
     token_hash TEXT PRIMARY KEY,
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     expires_at INTEGER NOT NULL,
-    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_seen_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS sessions_expiry_idx ON sessions(expires_at);
 CREATE TABLE IF NOT EXISTS runs (
@@ -76,4 +79,20 @@ CREATE TABLE IF NOT EXISTS schema_migrations (
     version TEXT PRIMARY KEY,
     applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE IF NOT EXISTS feedback (
+    id TEXT PRIMARY KEY,
+    workspace_id TEXT NOT NULL REFERENCES workspaces(id),
+    user_id TEXT NOT NULL REFERENCES users(id),
+    category TEXT NOT NULL,
+    message TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'NEW',
+    rating INTEGER CHECK (rating IS NULL OR rating BETWEEN 1 AND 5),
+    assigned_to TEXT,
+    resolution_notes TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS feedback_created_idx ON feedback(created_at);
+CREATE INDEX IF NOT EXISTS sessions_last_seen_idx ON sessions(last_seen_at);
 

@@ -49,7 +49,7 @@ class OperationsTests(unittest.TestCase):
             first = con.execute("SELECT version FROM schema_migrations ORDER BY version").fetchall()
             server.apply_migrations(con)
             second = con.execute("SELECT version FROM schema_migrations ORDER BY version").fetchall()
-        self.assertEqual([r[0] for r in first], ["000_schema_migrations", "001_runs", "002_daily_usage", "003_workspace_baselines", "004_audit_events"])
+        self.assertEqual([r[0] for r in first], ["000_schema_migrations", "001_runs", "002_daily_usage", "003_workspace_baselines", "004_audit_events", "005_feedback", "006_online_sessions", "007_admin_role_hardening", "008_user_job_title"])
         self.assertEqual([r[0] for r in second], [r[0] for r in first])
 
     def test_run_list_is_scoped_to_authenticated_workspace(self):
@@ -74,6 +74,37 @@ class OperationsTests(unittest.TestCase):
         self.assertEqual(status, 403)
         with server.db() as con:
             self.assertEqual(con.execute("SELECT plan FROM workspaces WHERE id='tenant-a'").fetchone()[0], "Basic")
+
+    def test_demo_role_switch_cannot_promote_a_customer_to_admin(self):
+        status, body = self.call("demo_role", {"role":"Admin"})
+        self.assertEqual(status, 400)
+        self.assertEqual(self.user["role"], "Operator")
+
+    def test_admin_login_requires_server_bootstrapped_admin_identity(self):
+        with mock.patch.dict(os.environ, {"SYNCSHIELD_ADMIN_EMAIL":"root@example.test", "SYNCSHIELD_ADMIN_PASSWORD":"long-secure-password-123"}):
+            server.bootstrap_platform_admin()
+        self.assertEqual(self.call("admin_login", {"email":"a@example.test", "password":"fixture"})[0], 401)
+        status, body = self.call("admin_login", {"email":"root@example.test", "password":"long-secure-password-123"})
+        self.assertEqual(status, 200)
+        self.assertEqual(body["next"], "/admin")
+
+    def test_feedback_is_saved_and_global_admin_overview_is_protected(self):
+        self.assertEqual(self.call("submit_feedback", {"category":"Idea", "message":"Add dry-run reports"})[0], 201)
+        self.assertEqual(self.call("submit_feedback", {"category":"Issue", "message":"   "})[0], 400)
+        self.assertEqual(self.handler.admin_overview(None)[0], 401)
+        self.assertEqual(self.handler.admin_overview((self.user,"session"))[0], 403)
+        with mock.patch.dict(os.environ, {"SYNCSHIELD_ADMIN_EMAIL":"root@example.test", "SYNCSHIELD_ADMIN_PASSWORD":"long-secure-password-123"}):
+            server.bootstrap_platform_admin()
+        with server.db() as con:
+            admin = con.execute("SELECT u.*,w.name workspace_name,w.plan,w.subscription_status FROM users u JOIN workspaces w ON w.id=u.workspace_id WHERE u.email='root@example.test'").fetchone()
+        self.handler.set_session(admin["id"])
+        status, result = self.handler.admin_overview((admin,"admin-session"))
+        self.assertEqual(status, 200)
+        self.assertGreaterEqual(result["users"], 2)
+        self.assertEqual(result["workspaces"], 2)
+        self.assertEqual(result["feedback"][0]["message"], "Add dry-run reports")
+        self.assertTrue(any(m["email"]=="a@example.test" and m["quota_limit"]==3 for m in result["members"]))
+        self.assertGreaterEqual(result["online_users"], 1)
 
     def test_checkout_without_provider_credentials_does_not_fake_a_payment(self):
         with mock.patch.dict(os.environ, {}, clear=True):

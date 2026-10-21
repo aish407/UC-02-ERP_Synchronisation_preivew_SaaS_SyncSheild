@@ -1,0 +1,32 @@
+**********************
+PowerShell transcript start
+Start time: 20261020160535
+Username: HP\Aishwarya
+RunAs User: HP\Aishwarya
+Configuration Name: 
+Machine: HP (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\Aishwarya\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+.\scripts\capture-evidence.ps1 -SkipHealthCheck
+Process ID: 18052
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+== Python syntax ==
+
+== Frontend syntax ==
+
+== Acceptance tests ==
+
+All local checks passed.
+Evidence saved to C:\Users\Aishwarya\Documents\Codex\2026-10-20\hi\evidence\local-verification-20261020-160535.txt
+**********************
+PowerShell transcript end
+End time: 20261020160539
+**********************
